@@ -7,8 +7,12 @@ int main(){
 	printf("life was simple\n");
 	FILE *direction;
 	FILE *value;
-	direction = fopen(dirpath,'w');
-	value = fopen(valuepath,'w');
+	direction = fopen(dirpath,"w");
+	value = fopen(valuepath,"w");
+	if((direction == NULL) || (value == NULL)){
+		printf("null\n");
+		return 1;
+	}
 	
 	printf("lmao\n");
 	fprintf(direction,"out\n");
