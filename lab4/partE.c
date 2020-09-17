@@ -4,5 +4,7 @@
 int main(int argc, char *argv[])
 {
 int a=open("/dev/memory",O_RDWR);
-ioctl(a,(argv[1] != '0'),0);
+int pol = argv[1] != '0';
+printf("pol %d",pol);
+ioctl(a,(pol),0);
 }
