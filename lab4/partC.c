@@ -21,12 +21,11 @@ ssize_t memory_write (struct file *filp, const char *buf, size_t count,
 void memory_exit (void);
 int memory_init (void);
 
-void add_to_FIFO(char *fifo, size_t size, char toadd){
+void shift_FIFO(char *fifo, size_t size){
 	size_t i = size-1;
 	for(i = size-1; i > 0; i= i-1){
 		fifo[i] = fifo[i-1];
 	}
-	fifo[0] = toadd;
 }
 
 struct file_operations memory_fops = 
@@ -117,8 +116,9 @@ memory_write (struct file * filp, const char *buf, size_t count, loff_t * f_pos)
 {
   char *tmp;
   tmp = buf;
+  shift_FIFO(memory_buffer, 5);
   copy_from_user (memory_buffer, tmp, 1);
-  add_to_FIFO(memory_buffer, 5, *tmp);
+  
   *f_pos += 1;
   printk(memory_buffer);
   return 1;
