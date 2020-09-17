@@ -5,8 +5,10 @@ int main(){
 	char dirpath[] = "/sys/class/gpio/gpio23/direction";
 	char valuepath[] = "/sys/class/gpio/gpio23/value";
 	printf("life was simple\n");
-	FILE *direction = fopen(dirpath,'w');
-	FILE *value = fopen(valuepath,'w');
+	FILE *direction;
+	FILE *value;
+	direction = fopen(dirpath,'w');
+	value = fopen(valuepath,'w');
 	
 	printf("lmao\n");
 	fprintf(direction,"out\n");
