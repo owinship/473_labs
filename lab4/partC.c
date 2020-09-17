@@ -102,7 +102,7 @@ memory_read (struct file * filp, char *buf, size_t count, loff_t * f_pos)
   /* Changing reading position as best suits */
   if (*f_pos < 5)
     {
-      copy_to_user (buf+(*f_pos), memory_buffer, 1);
+      copy_to_user (buf, memory_buffer + *f_pos, 1);
       *f_pos += 1;
       return 1;
     }
