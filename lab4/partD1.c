@@ -4,6 +4,7 @@ int main(){
 	printf("in the beginning \n");
 	char dirpath[] = "/sys/class/gpio/gpio23/direction";
 	char valuepath[] = "/sys/class/gpio/gpio23/value";
+	printf("life was simple\n");
 	FILE *direction = fopen(dirpath,'w');
 	FILE *value = fopen(valuepath,'w');
 	
