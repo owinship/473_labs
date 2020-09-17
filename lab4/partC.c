@@ -23,7 +23,7 @@ int memory_init (void);
 
 void add_to_FIFO(char *fifo, size_t size, char toadd){
 	size_t i = size-1;
-	for(i = size-1; i > 0; i--){
+	for(i = size-1; i > 0; i= i-1){
 		fifo[i] = fifo[i-1];
 	}
 	fifo[0] = toadd;
@@ -55,14 +55,15 @@ memory_init (void)
     }
 
   /* Allocating memory for the buffer */
-  memory_buffer = kmalloc (5, GFP_KERNEL);
+  memory_buffer = kmalloc (6, GFP_KERNEL);
   if (!memory_buffer)
     {
       result = -ENOMEM;
       goto fail;
     }
 
-  memset (memory_buffer, 0,5);
+  memset (memory_buffer, 0,6);
+  memory_buffer[5] = '\0';
   printk ("<1> Inserting memory module\n");
   return 0;
 
@@ -119,7 +120,7 @@ memory_write (struct file * filp, const char *buf, size_t count, loff_t * f_pos)
   copy_from_user (memory_buffer, tmp, 1);
   add_to_FIFO(memory_buffer, 5, *tmp);
   *f_pos += 1;
-  printk("lmao %lld",*f_pos);
+  printk(memory_buffer);
   return 1;
 }
 
