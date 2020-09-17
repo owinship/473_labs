@@ -86,12 +86,14 @@ memory_ioctl (struct file *filp, unsigned int cmd,
  	      unsigned long arg)
 {
   printk("<1>in ioctl\n");
-  if(cmd==0) 
+  if(cmd==0){
 	LEFT_MOTOR = !LEFT_MOTOR;
 	printk("left motor %d\n",LEFT_MOTOR);
-  else if(cmd==1)
+  }
+  else if(cmd==1){
 	RIGHT_MOTOR = !RIGHT_MOTOR;
 	printk("right motor %d\n",RIGHT_MOTOR);
+  }
   return(0); // success!
 }
 
