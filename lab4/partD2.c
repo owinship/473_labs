@@ -187,7 +187,7 @@ void setPin(int PIN) {
         return;
     }
     // Your stuff here.
-	gpio_request(PIN);
+	gpio_request(PIN, strcat("GPIO",itoa(PIN)));
 	gpio_direction_output(PIN,0);
     
     printk("GPIO pin %d exported... Pin state is currently: %d\n", PIN, gpio_get_value(PIN));
