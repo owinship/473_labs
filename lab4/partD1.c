@@ -10,6 +10,8 @@ int main(){
 	fclose(direction);
 	for(;;){
 		fprintf(value,"%d",1);
+		rewind(value);
 		fprintf(value,"%d",0);
+		rewind(value);
 	}
 }
