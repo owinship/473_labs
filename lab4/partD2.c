@@ -68,14 +68,31 @@ void moveRobot(char command);
 void motorControl(bool ifLeftMotor, char command);
 
 
+
+long memory_ioctl (struct file *filp, unsigned int cmd, \
+		  unsigned long arg);
+
 struct file_operations memory_fops = 
 {
   .read = memory_read,
   .write = memory_write,
   .open = memory_open,
   .release = memory_release,
-//  .unlocked_ioctl = memory_ioctl
+  .unlocked_ioctl = memory_ioctl
 };
+
+long 
+memory_ioctl (struct file *filp, unsigned int cmd,
+ 	      unsigned long arg)
+{
+  printk("<1>in ioctl\n");
+  if(cmd==0) 
+	LEFT_MOTOR = !LEFT_MOTOR;
+  else if(cmd==1)
+	RIGHT_MOTOR = !RIGHT_MOTOR;
+  return(0); // success!
+}
+
 
 module_init (memory_init);
 module_exit (memory_exit);
