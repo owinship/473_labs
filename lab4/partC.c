@@ -23,7 +23,7 @@ int memory_init (void);
 
 void add_to_FIFO(char *fifo, size_t size, char toadd){
 	size_t i = size-1;
-	for(i; i > 0; i--){
+	for(i = size-1; i > 0; i--){
 		fifo[i] = fifo[i-1];
 	}
 	fifo[0] = toadd;
@@ -115,8 +115,9 @@ ssize_t
 memory_write (struct file * filp, const char *buf, size_t count, loff_t * f_pos)
 {
   char *tmp;
-  tmp = buf + count - 1;
+  tmp = buf + *f_pos;
   copy_from_user (memory_buffer, tmp, 1);
+  add_to_FIFO(memory_buffer, 5, *tmp);
   *f_pos += 1;
   printk("lmao %lld",*f_pos);
   return 1;
