@@ -7,8 +7,8 @@
 #include <linux/types.h>	/* size_t */
 #include <linux/proc_fs.h>
 #include <linux/fcntl.h>	/* O_ACCMODE */
-//#include <asm/system.h>		/* cli(), *_flags */
-#include <asm/uaccess.h>	/* copy_from/to_user */
+//#include <linux/system.h>		/* cli(), *_flags */
+#include <linux/uaccess.h>	/* copy_from/to_user */
 
 MODULE_LICENSE ("Dual BSD/GPL");
 
@@ -16,7 +16,7 @@ int memory_open (struct inode *inode, struct file *filp);
 int memory_release (struct inode *inode, struct file *filp);
 ssize_t memory_read (struct file *filp, char *buf, size_t count,
 		     loff_t * f_pos);
-ssize_t memory_write (struct file *filp, char *buf, size_t count,
+ssize_t memory_write (struct file *filp, const char *buf, size_t count,
 		      loff_t * f_pos);
 void memory_exit (void);
 int memory_init (void);
@@ -104,7 +104,7 @@ memory_read (struct file * filp, char *buf, size_t count, loff_t * f_pos)
 }
 
 ssize_t
-memory_write (struct file * filp, char *buf, size_t count, loff_t * f_pos)
+memory_write (struct file * filp, const char *buf, size_t count, loff_t * f_pos)
 {
   char *tmp;
   tmp = buf + count - 1;
