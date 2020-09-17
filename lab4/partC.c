@@ -21,6 +21,13 @@ ssize_t memory_write (struct file *filp, const char *buf, size_t count,
 void memory_exit (void);
 int memory_init (void);
 
+void add_to_FIFO(char *fifo, size_t size, char toadd){
+	for(size_t i = size-1; i > 0; i--){
+		fifo[i] = fifo[i-1];
+	}
+	fifo[0] = toadd;
+}
+
 struct file_operations memory_fops = 
 {
   .read = memory_read,
@@ -47,14 +54,14 @@ memory_init (void)
     }
 
   /* Allocating memory for the buffer */
-  memory_buffer = kmalloc (1, GFP_KERNEL);
+  memory_buffer = kmalloc (5, GFP_KERNEL);
   if (!memory_buffer)
     {
       result = -ENOMEM;
       goto fail;
     }
 
-  memset (memory_buffer, 0, 1);
+  memset (memory_buffer, 0,5);
   printk ("<1> Inserting memory module\n");
   return 0;
 
@@ -91,9 +98,9 @@ memory_read (struct file * filp, char *buf, size_t count, loff_t * f_pos)
 {
   /* Transfering data to user space */
   /* Changing reading position as best suits */
-  if (*f_pos == 0)
+  if (*f_pos < 5)
     {
-      copy_to_user (buf, memory_buffer, 1);
+      copy_to_user (buf+(*f_pos), memory_buffer, 1);
       *f_pos += 1;
       return 1;
     }
@@ -110,5 +117,8 @@ memory_write (struct file * filp, const char *buf, size_t count, loff_t * f_pos)
   tmp = buf + count - 1;
   copy_from_user (memory_buffer, tmp, 1);
   *f_pos += 1;
+  printk("lmao %d",*f_pos);
   return 1;
 }
+
+
