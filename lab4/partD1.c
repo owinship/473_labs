@@ -1,25 +1,25 @@
 #include <stdio.h>
 
 int main(){
-	printf("in the beginning");
+	printf("in the beginning \n");
 	char dirpath[] = "/sys/class/gpio/gpio23/direction";
 	char valuepath[] = "/sys/class/gpio/gpio23/value";
 	FILE *direction = fopen(dirpath,'w');
 	FILE *value = fopen(valuepath,'w');
 	
-	printf("lmao");
-	fprintf(direction,"out");
-	printf("rofl");
+	printf("lmao\n");
+	fprintf(direction,"out\n");
+	printf("rofl\n");
 	fclose(direction);
-	printf("lol");
+	printf("lol\n");
 	for(;;){
 		fprintf(value,"%d",1);
-		printf("holy shit");
+		printf("holy shit\n");
 		rewind(value);
-		printf("fug");
+		printf("fug\n");
 		fprintf(value,"%d",0);
-		printf("waddup");
+		printf("waddup\n");
 		rewind(value);
-		printf("notlikethis");
+		printf("notlikethis\n");
 	}
 }
