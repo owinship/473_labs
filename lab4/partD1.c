@@ -17,8 +17,7 @@ int main(){
 	for(;;){
 		fprintf(value,"%d",1);
 		rewind(value);
-		printf("fug\n");
-		printf("waddup\n");
+		fprintf(value,"%d",0);
 		rewind(value);
 	}
 }
