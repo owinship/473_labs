@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 int main(){
+	printf("in the beginning");
 	char dirpath[] = "/sys/class/gpio/gpio23/direction";
 	char valuepath[] = "/sys/class/gpio/gpio23/value";
 	FILE *direction = fopen(dirpath,'w');
