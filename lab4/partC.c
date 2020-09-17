@@ -116,7 +116,7 @@ ssize_t
 memory_write (struct file * filp, const char *buf, size_t count, loff_t * f_pos)
 {
   char *tmp;
-  tmp = buf + *f_pos;
+  tmp = buf;
   copy_from_user (memory_buffer, tmp, 1);
   add_to_FIFO(memory_buffer, 5, *tmp);
   *f_pos += 1;
